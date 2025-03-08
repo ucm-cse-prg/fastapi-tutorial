@@ -1,5 +1,8 @@
 services:
   mongo:
+    container_name: mongo
+    networks:
+      - app-network
     image: mongo:latest
     ports:
       - "27017:27017"
@@ -18,3 +21,5 @@ services:
       PORT: 8000
     depends_on:
       - mongo
+    networks:
+      - app-network
