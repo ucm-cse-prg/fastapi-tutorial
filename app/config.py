@@ -1,6 +1,6 @@
 from functools import lru_cache
 
-from pydantic import EmailStr, Field
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -13,11 +13,6 @@ class Settings(BaseSettings):
     environment variables, with a '.env' file serving as a source for these variables.
     """
 
-    admin_email: EmailStr = Field(
-        default="admin@example.com",
-        title="Admin Email",
-        description="The email address of the API administrator.",
-    )
     mongodb_url: str = Field(
         default="mongodb://localhost:27017",
         title="MongoDB URL",
@@ -28,18 +23,49 @@ class Settings(BaseSettings):
         title="Database Name",
         description="The name of the database.",
     )
-    secrete_key: str = Field(
-        default="secret",
-        title="Secrete Key",
-        description="The secrete key of the API.",
+    origins: str = Field(
+        default="*",
+        title="Origins",
+        description="The origins of the API.",
     )
-    origins: str = "*"  # Allowed origins for CORS configuration.
-    host: str = "0.0.0.0"  # Server binding IP address.
-    port: int = 9000  # Port on which the server will run.
-    reload: bool = True  # Flag for auto-reload during development.
-    model_config = SettingsConfigDict(
-        env_file=".env"
-    )  # Configuration to load settings from a .env file.
+    host: str = Field(
+        default="localhost",
+        title="Host",
+        description="The hostname to bind the server to.",
+    )
+    port: int = Field(
+        default=8000,
+        gt=0,
+        lt=65536,
+        title="Port",
+        description="The port on which to run the server.",
+    )
+    reload: bool = Field(
+        default=False,
+        title="Reload",
+        description="Enable or disable automatic reloading of the server.",
+    )
+
+    # Load settings from a .env file.
+    model_config = SettingsConfigDict(env_file=".env")
+
+
+settings = Settings()
+
+
+def set_settings(new_settings: Settings) -> None:
+    """
+    Set the application settings to the provided instance.
+
+    This function allows the application settings to be updated with a new instance
+    of the Settings class. This can be useful when the settings need to be modified
+    programmatically.
+
+    Args:
+        new_settings (Settings): The new application configuration settings.
+    """
+    global settings
+    settings = new_settings
 
 
 @lru_cache()
@@ -54,4 +80,4 @@ def get_settings() -> Settings:
     Returns:
         Settings: The application configuration settings.
     """
-    return Settings()
+    return settings
