@@ -27,9 +27,6 @@ async def init_mongo() -> None:
         Exception: If unable to connect to MongoDB or initialize Beanie.
     """
 
-    print(SETTINGS.mongodb_url)
-    print(SETTINGS.db_name)
-
     # Create a Motor client to interact with MongoDB.
     client: AsyncIOMotorClient = AsyncIOMotorClient(SETTINGS.mongodb_url)
 
