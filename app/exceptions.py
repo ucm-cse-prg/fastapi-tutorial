@@ -1,5 +1,9 @@
+import logging
+
 from beanie import PydanticObjectId
 from fastapi import status
+
+logger = logging.getLogger("uvicorn.error")
 
 
 class APIException(Exception):
@@ -15,10 +19,10 @@ class APIException(Exception):
         self.code = code
         # A descriptive error message.
         self.detail = detail
+        logger.warning(self.detail)
 
     def __str__(self) -> str:
-        # Print the error detail for logging purposes.
-        print(self.detail)
+        # Return the error message when the exception is printed.
         return self.detail
 
 
@@ -34,30 +38,6 @@ class InternalServerError(APIException):
         super().__init__(
             code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error"
         )
-
-
-class BadRequest(APIException):
-    """
-    Exception raised for bad requests (HTTP 400).
-
-    Inherits from APIException and automatically assigns a 400 HTTP status code.
-    """
-
-    def __init__(self, detail: str):
-        # Initialize with HTTP 400 status code and a generic bad request message.
-        super().__init__(code=status.HTTP_400_BAD_REQUEST, detail="Bad Request")
-
-
-class NotFound(APIException):
-    """
-    Exception raised when a requested resource is not found (HTTP 404).
-
-    Inherits from APIException and automatically assigns a 404 HTTP status code.
-    """
-
-    def __init__(self, detail: str):
-        # Initialize with HTTP 404 status code and a generic not found message.
-        super().__init__(code=status.HTTP_404_NOT_FOUND, detail="Not Found")
 
 
 class ProductNotFound(APIException):
