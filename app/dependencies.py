@@ -35,6 +35,7 @@ def http_request_dependency(func):
     return wrapper
 
 
+@http_request_dependency
 async def product_dependency(product_id: PydanticObjectId) -> Product:
     """
     Retrieve and return a product document using its ID.
