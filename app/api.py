@@ -43,9 +43,12 @@ async def get_product(product_id: PydanticObjectId) -> Documents.Product:
     Returns:
         Schemas.GetProductResponse: The product data corresponding to the given ID.
     """
-    # Retrieve the product using the provided product_id.
-    product: Documents.Product = await Actions.get_product(product_id)
-    return product
+    try:
+        # Retrieve the product using the provided product_id.
+        return await Actions.get_product(product_id)
+    except APIException as e:
+        # Convert API exception to HTTP exception.
+        raise HTTPException(status_code=e.code, detail=e.detail)
 
 
 @router.post("/", response_model=Schemas.CreateProductResponse, status_code=201)
@@ -64,8 +67,7 @@ async def create_product(product: Schemas.CreateProductRequest) -> Documents.Pro
     """
     try:
         # Using the product data to create a new product.
-        new_product = await Actions.create_product(**product.model_dump())
-        return new_product
+        return await Actions.create_product(**product.model_dump())
     except APIException as e:
         # Convert API exception to HTTP exception.
         raise HTTPException(status_code=e.code, detail=e.detail)
@@ -91,10 +93,7 @@ async def update_product(
     """
     try:
         # Update the product with the new values provided.
-        updated_product = await Actions.update_product(
-            product, **request_body.model_dump()
-        )
-        return updated_product
+        return await Actions.update_product(product, **request_body.model_dump())
     except APIException as e:
         # Handle API exception by converting it into an HTTP exception.
         raise HTTPException(status_code=e.code, detail=e.detail)
