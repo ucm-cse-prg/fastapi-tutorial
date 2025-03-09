@@ -35,3 +35,27 @@ async def init_mongo() -> None:
 
     # Initialize Beanie with the database and the list of document models.
     await init_beanie(database=db, document_models=[Product])
+
+
+async def drop_database() -> None:
+    """
+    Drop the database specified in the application settings.
+
+    This function is used for testing purposes to drop the database before running tests.
+    It should not be used in a production environment.
+
+    Raises:
+        Exception: If unable to drop the database.
+    """
+    client: AsyncIOMotorClient = AsyncIOMotorClient(SETTINGS.mongodb_url)
+    await client.drop_database(SETTINGS.db_name)
+
+
+async def close_mongo() -> None:
+    """
+    Close the MongoDB connection.
+
+    This function closes the MongoDB connection when the application is shutting down.
+    """
+    client: AsyncIOMotorClient = AsyncIOMotorClient(SETTINGS.mongodb_url)
+    client.close()
