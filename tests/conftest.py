@@ -10,27 +10,6 @@ from httpx import ASGITransport, AsyncClient
 
 from app.app import app
 
-# @pytest.fixture(scope="session")
-# def event_loop():
-#     """
-#     Create and yield an asyncio event loop for the testing session.
-
-#     Attempts to get the current running event loop; if none exists,
-#     a new event loop is created. Once tests complete, the event loop is
-#     closed to free resources.
-
-#     Yields:
-#         asyncio.AbstractEventLoop: The event loop used by asynchronous tests.
-#     """
-#     try:
-#         # Try to get the currently running event loop.
-#         loop = asyncio.get_running_loop()
-#     except RuntimeError:
-#         # No running event loop, so create a new one.
-#         loop = asyncio.new_event_loop()
-#     yield loop
-#     loop.close()
-
 
 @pytest.fixture()
 async def client_test():
