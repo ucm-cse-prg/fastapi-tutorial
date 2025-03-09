@@ -25,4 +25,4 @@ class Product(Document, ProductModel):
         Specifies the MongoDB collection name where Product documents are stored.
         """
 
-        collection = "products"
+        name = "products"
