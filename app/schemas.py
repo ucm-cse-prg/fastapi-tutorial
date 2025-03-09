@@ -9,7 +9,7 @@ These schemas help with data validation and serialization between the client and
 from typing import Optional
 
 from beanie import PydanticObjectId
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 from app.models import Category, Product
 
@@ -58,7 +58,7 @@ class CreateProductResponse(Product, BaseModel):
     id: PydanticObjectId  # Unique identifier for the newly created product
 
 
-class UpdateProductRequest(BaseModel):
+class UpdateProductRequest(Product, BaseModel):
     """
     Schema for updating an existing product.
 
@@ -67,32 +67,15 @@ class UpdateProductRequest(BaseModel):
     This schema is used for the request payload of the PUT Product/{id} endpoint.
     """
 
-    name: Optional[str] = Field(
-        default=None,
-        title="Name",
-        description="Name of the product",
-        max_length=20,
-        min_length=2,
-        pattern=r"^[\w-]+$",
-        examples=["SM-G973F", "iPhone 12"],
-    )
-    description: Optional[str] = Field(
-        default=None,
-        title="Description",
-        description="Description of the product",
-        max_length=100,
-        examples=["Samsung Galaxy S10", "The latest iPhone"],
-    )
-    price: Optional[float] = Field(
-        default=None,
-        title="Price",
-        description="Price of the product",
-        gt=0,
-        lt=100000,
-        allow_inf_nan=False,
-        examples=[799.99, 1299.99],
-    )
-    category: Optional[Category] = None  # Optional updated category of the product
+    # NOTE: We are using the 'type: ignore' comment to suppress mypy errors.
+    # We are overriding the fields from the Product model to make them optional
+    # Due to the original fields being required, making them optional raises a mypy error
+    # Hence, we use the 'type: ignore' comment to suppress the error
+
+    name: Optional[str] = None  # type: ignore
+    description: Optional[str] = None  # type: ignore
+    price: Optional[float] = None  # type: ignore
+    category: Optional[Category] = None  # type: ignore
 
 
 class UpdateProductResponse(GetProductResponse, BaseModel):
