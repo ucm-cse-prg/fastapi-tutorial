@@ -75,7 +75,7 @@ class Product(BaseModel):
     )
     category: Category
 
-    @field_validator("price")
+    @field_validator("price", mode="after")
     @classmethod
     def price_ends_with_99(cls, v: float) -> float:
         """
