@@ -1,3 +1,5 @@
+import typing
+from functools import wraps
 from typing import Optional
 
 from beanie import PydanticObjectId
@@ -8,7 +10,23 @@ from app.exceptions import InternalServerError
 from app.models import Category
 
 
+# Wrapper function to run action and rais InternalServerError if it fails
+@typing.no_type_check
+def run_action(action):
+    @wraps(action)
+    async def wrapper(*args, **kwargs):
+        try:
+            # Call the wrapped function with provided arguments.
+            return await action(*args, **kwargs)
+        except Exception as e:
+            # Convert APIException into HTTPException with corresponding code and message.
+            raise InternalServerError(str(e))
+
+    return wrapper
+
+
 # List all products
+@run_action
 async def get_all_products() -> list[Product]:
     products: list[Product] = await Product.find_all().to_list()
     return products
@@ -29,7 +47,7 @@ async def get_product(product_id: PydanticObjectId) -> Product:
     """
 
     # Get the product by ID
-    return await get_product_by_id(product_id)
+    return await get_product_by_id(product_id)  # type: ignore
 
 
 # Create a new product
