@@ -1,11 +1,9 @@
 import typing
 from functools import wraps
 
-from beanie import PydanticObjectId
 from fastapi import HTTPException
 
-from app.documents import Product
-from app.exceptions import APIException, ProductNotFound
+from app.exceptions import APIException
 
 
 @typing.no_type_check
@@ -35,27 +33,12 @@ def http_request_dependency(func):
     return wrapper
 
 
-@http_request_dependency
-async def product_dependency(product_id: PydanticObjectId) -> Product:
-    """
-    Retrieve and return a product document using its ID.
-
-    This dependency function is used in route dependency injection to ensure that the
-    product exists before further processing. If the product is not found, it raises a
-    ProductNotFound exception, which is then converted to an HTTPException by the decorator.
-
-    Args:
-        product_id (PydanticObjectId): The unique identifier for the product.
-
-    Raises:
-        ProductNotFound: If no product is found with the provided ID.
-
-    Returns:
-        Product: The retrieved product document.
-    """
-    product: Product | None = await Product.get(product_id)
-
-    if not product:
-        raise ProductNotFound(product_id)
-
-    return product
+# CHALLENGE:
+# Consider using dependency injection to handle common operations like retrieving a product by ID.
+#
+# Example:
+#
+# @http_request_dependency
+# async def get_product_by_id(product_id: PydanticObjectId) -> Product:
+#   TODO: Implement logic to retrieve a product by ID
+#   pass
