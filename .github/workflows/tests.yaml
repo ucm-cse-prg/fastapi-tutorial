@@ -21,3 +21,9 @@ jobs:
 
       - name: Run tests
         run: uv run pytest
+
+      - name: Run linters
+        run: uv run ruff check
+
+      - name: Run type checker
+        run: uv run mypy app
