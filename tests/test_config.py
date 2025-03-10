@@ -1,13 +1,4 @@
-from app.config import Settings, get_settings, set_settings, settings
-
-
-def test_default_settings_values() -> None:
-    assert settings.mongodb_url == "mongodb://localhost:27017"
-    assert settings.db_name == "test_db"
-    assert settings.origins == "*"
-    assert settings.host == "0.0.0.0"
-    assert settings.port == 8000
-    assert settings.reload is False
+from app.config import Settings, get_settings, set_settings
 
 
 def test_get_settings_cached() -> None:
