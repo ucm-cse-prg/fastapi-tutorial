@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.1.3 (2025-03-10)
+
+### Bug Fixes
+
+- Update Docker tags to use dynamic output
+  ([`30eaa8a`](https://github.com/ucm-cse-prg/fastapi-tutorial/commit/30eaa8aff2a93604e9681a9834601a4301e4f5b9))
+
+
 ## v0.1.2 (2025-03-10)
 
 ### Bug Fixes
