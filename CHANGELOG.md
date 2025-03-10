@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.1.1 (2025-03-10)
+
+### Bug Fixes
+
+- Set environment variables for Docker registry
+  ([`6646e55`](https://github.com/ucm-cse-prg/fastapi-tutorial/commit/6646e55a3b766889a2f217d29664f588b7a880f3))
+
+
 ## v0.1.0 (2025-03-10)
 
 ### Bug Fixes
