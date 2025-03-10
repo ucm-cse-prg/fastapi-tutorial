@@ -64,7 +64,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: unipoll/api:${{ needs.release.outputs.version }}, unipoll/api:latest
+          tags: ucm-cse-prg/fastapi-tutorial:${{ needs.release.outputs.version }}, ucm-cse-prg/fastapi-tutorial:latest
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Generate artifact attestation
