@@ -1,6 +1,6 @@
 # FastAPI CRUD Application with Beanie ODM
 
-[![Coverage Status](https://coveralls.io/repos/github/ucm-cse-prg/fastapi-tutorial/badge.svg?branch=main)](https://coveralls.io/github/ucm-cse-prg/fastapi-tutorial?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/ucm-cse-prg/fastapi-app/badge.svg?branch=main)](https://coveralls.io/github/ucm-cse-prg/fastapi-app?branch=main)
 
 This project is a simple CRUD application built with FastAPI, MongoDB (via Beanie and Motor), and Typer for command-line interface commands. It also offers Docker support and unit tests with pytest, making deployment and testing easy.
 
@@ -38,7 +38,7 @@ This sample project demonstrates:
 ## Project Structure
 
 ```
-fastapi-tutorial/
+fastapi-app/
 ├── app
 │   ├── api.py             # API endpoints (GET, POST, PATCH, DELETE)
 │   ├── actions.py         # Business logic for CRUD operations
@@ -67,8 +67,8 @@ fastapi-tutorial/
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/ucm-cse-prg/fastapi-tutorial.git
-   cd fastapi-tutorial
+   git clone https://github.com/ucm-cse-prg/fastapi-app.git
+   cd fastapi-app
    ```
 
 2. **Install UV:**
