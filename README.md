@@ -1,5 +1,7 @@
 # FastAPI CRUD Application with Beanie ODM
 
+[![Coverage Status](https://coveralls.io/repos/github/ucm-cse-prg/fastapi-tutorial/badge.svg?branch=main)](https://coveralls.io/github/ucm-cse-prg/fastapi-tutorial?branch=main)
+
 This project is a simple CRUD application built with FastAPI, MongoDB (via Beanie and Motor), and Typer for command-line interface commands. It also offers Docker support and unit tests with pytest, making deployment and testing easy.
 
 The application allows users to perform CRUD operations on products via a RESTful API.
