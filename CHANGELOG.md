@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.1.2 (2025-03-10)
+
+### Bug Fixes
+
+- Update Docker image tags in build workflow
+  ([`0d7e9c9`](https://github.com/ucm-cse-prg/fastapi-tutorial/commit/0d7e9c90c77b380d4e212c2ba84f15d507f7a556))
+
+
 ## v0.1.1 (2025-03-10)
 
 ### Bug Fixes
