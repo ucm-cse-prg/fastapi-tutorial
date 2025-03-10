@@ -20,7 +20,6 @@ dev = [
     "pytest>=8.3.4",
     "pytest-asyncio>=0.25.3",
     "pytest-cov>=6.0.0",
-    "python-semantic-release>=9.21.0",
     "ruff>=0.9.9",
 ]
 
@@ -54,7 +53,7 @@ upload_to_release = true
 commit_version_number = true
 tag_commit = true
 changelog_file = "CHANGELOG.md"
-build_command = "uv build"
+build_command = "python -m pip install uv && python -m uv build"
 allowed_tags = [
     "build",
     "chore",
