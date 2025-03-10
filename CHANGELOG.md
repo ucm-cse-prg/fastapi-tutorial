@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.1.4 (2025-03-10)
+
+### Bug Fixes
+
+- Update Docker image tags to use full registry path
+  ([`5d4266f`](https://github.com/ucm-cse-prg/fastapi-tutorial/commit/5d4266ff72520c373b98f58aa6ed19e5eea1f3aa))
+
+
 ## v0.1.3 (2025-03-10)
 
 ### Bug Fixes
