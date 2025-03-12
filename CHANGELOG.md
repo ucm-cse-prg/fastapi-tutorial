@@ -1,6 +1,22 @@
 # CHANGELOG
 
 
+## v0.1.5 (2025-03-12)
+
+### Bug Fixes
+
+- Update Docker image tags and README references to use the new repository name
+  ([`d5d0884`](https://github.com/ucm-cse-prg/fastapi-app/commit/d5d0884842f301e83f17cb5cbc2627c898a13091))
+
+### Documentation
+
+- Update copilot instructions for commit messages
+  ([`c994e91`](https://github.com/ucm-cse-prg/fastapi-app/commit/c994e9107337e985df50bdd6da2f78824a22f259))
+
+This commit enhances the guidelines for writing commit messages, including format, structure, and
+  examples.
+
+
 ## v0.1.4 (2025-03-10)
 
 ### Bug Fixes
