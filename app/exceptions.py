@@ -48,3 +48,24 @@ class InternalServerError(APIException):
 #
 # class ProductNotFound(APIException):
 #     TODO: Implement creation logic
+
+class ProductNotFound(APIException):
+    def __init__(self, detail: str):
+        # Initialize with HTTP 404 status code and a descriptive error message.
+        super().__init__(
+            code=status.HTTP_404_NOT_FOUND, detail="Product not found"
+        )
+
+class UpdateFailed(APIException):
+    def __init__(self, detail: str):
+        # Initialize with HTTP 400 status code and a descriptive error message.
+        super().__init__(
+            code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Update failed"
+        )
+
+class DeleteFailed(APIException):
+    def __init__(self, detail: str):
+        # Initialize with HTTP 400 status code and a descriptive error message.
+        super().__init__(
+            code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Delete failed"
+        )

@@ -4,6 +4,9 @@ from functools import wraps
 from fastapi import HTTPException
 
 from app.exceptions import APIException
+from beanie import PydanticObjectId
+from app.documents import ProductDocument
+from app.exceptions import ProductNotFound
 
 
 @typing.no_type_check
@@ -42,3 +45,12 @@ def http_request_dependency(func):
 # async def get_product_by_id(product_id: PydanticObjectId) -> Product:
 #   TODO: Implement logic to retrieve a product by ID
 #   pass
+
+@http_request_dependency
+async def get_product_by_id(product_id: PydanticObjectId) -> ProductDocument:
+    product: ProductDocument | None = await ProductDocument.get(product_id)
+
+    if not product:
+        raise ProductNotFound(product_id) 
+    
+    return product

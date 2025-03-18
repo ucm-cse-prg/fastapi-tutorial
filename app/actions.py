@@ -1,7 +1,13 @@
-import typing
+import typing 
+from typing import Optional
 from functools import wraps
 
 from app.exceptions import InternalServerError
+
+from app.documents import ProductDocument
+from beanie import PydanticObjectId
+from app.models import Category
+from app.dependencies import get_product_by_id
 
 
 # Wrapper function to run action and rais InternalServerError if it fails
@@ -41,3 +47,42 @@ def run_action(action):
 # async def create_product(name: str, price: float, category: YourCategoryType, description: str = "") -> YourProductType:
 #     # TODO: Implement creation logic
 #     pass
+
+@run_action
+async def get_all_products() -> list[ProductDocument]:
+    all_products: ProductDocument = await ProductDocument.all().to_list()
+    return all_products
+
+async def create_product(name: str, price: float, category: str, description: str = "") -> ProductDocument:
+    price = ProductDocument.price_check(price)
+    
+    new_product: ProductDocument = await ProductDocument(
+        name=name,
+        price=price,
+        category=category,
+        description=description
+    ).insert()
+    
+    if not new_product:
+        raise InternalServerError("Failed to create product.")
+
+    return new_product
+
+async def get_product(product_id: PydanticObjectId) -> ProductDocument:
+    return await get_product_by_id(product_id)
+
+async def update_product(product: ProductDocument, name: Optional[str], price: Optional[float], category: Optional[Category], description: Optional[str]) -> ProductDocument:
+    if name: 
+        product.name = name
+    if price:
+        product.price = price
+    if category:
+        product.category = category
+    if description:
+        product.description = description
+    await product.save()
+
+    return product
+
+async def delete_product(product: ProductDocument) -> None:
+    await product.delete()
