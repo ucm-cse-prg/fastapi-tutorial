@@ -2,9 +2,6 @@ import typing
 from functools import wraps
 from typing import Optional
 
-from beanie import PydanticObjectId
-
-from app.dependencies import product_dependency as get_product_by_id
 from app.documents import Product
 from app.exceptions import InternalServerError
 from app.models import Category
@@ -33,7 +30,7 @@ async def get_all_products() -> list[Product]:
 
 
 # Get a single product
-async def get_product(product_id: PydanticObjectId) -> Product:
+async def get_product(product: Product) -> Product:
     """Get a single product by ID.
 
     Args:
@@ -47,7 +44,7 @@ async def get_product(product_id: PydanticObjectId) -> Product:
     """
 
     # Get the product by ID
-    return await get_product_by_id(product_id)  # type: ignore
+    return product
 
 
 # Create a new product

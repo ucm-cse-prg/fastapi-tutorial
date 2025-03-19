@@ -1,6 +1,5 @@
 from typing import Literal
 
-from beanie import PydanticObjectId
 from fastapi import APIRouter, Depends, HTTPException, status
 
 import app.actions as Actions
@@ -33,7 +32,9 @@ async def get_products() -> dict[Literal["products"], list[Documents.Product]]:
 
 
 @router.get("/{product_id}", response_model=Schemas.GetProductResponse)
-async def get_product(product_id: PydanticObjectId) -> Documents.Product:
+async def get_product(
+    product: Documents.Product = Depends(product_dependency),
+) -> Documents.Product:
     """
     Retrieve a single product by its ID.
 
@@ -45,7 +46,7 @@ async def get_product(product_id: PydanticObjectId) -> Documents.Product:
     """
     try:
         # Retrieve the product using the provided product_id.
-        return await Actions.get_product(product_id)
+        return await Actions.get_product(product)
     except APIException as e:
         # Convert API exception to HTTP exception.
         raise HTTPException(status_code=e.code, detail=e.detail)
