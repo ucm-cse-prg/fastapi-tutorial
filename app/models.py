@@ -27,3 +27,55 @@ to validate and serialize the data passed between the API client and the server.
 # class Product(BaseModel):
 #     # TODO: Define fields and validations for a product
 #     pass
+
+from pydantic import BaseModel, Field
+
+class Category(BaseModel):
+    """
+    Data class representing a category of a product
+
+    Attributes:
+        name - name of a category
+        description - description of a category
+    """
+    name: str = Field(
+        title="Name",
+        min_length=2,
+        max_length=25,
+    )
+
+    description: str = Field(
+        title="Description", 
+        max_length=120,
+    )
+
+class Product(BaseModel):
+    """
+    Data class representing a type of product
+
+    Attributes:
+        name (str) - name of product
+        description (str)-  short description of a product
+        price (float) - the price of a product; greater than 0 and less than 100000
+        category (Category) - the category of a product
+    """
+
+    name: str = Field(
+        title="Name",
+        min_length=2,
+        max_length=25
+    )
+
+    description: str = Field(
+        title="Description", 
+        max_length=100,
+
+    )
+
+    price: float = Field(
+        title="Price",
+        lt=100000,
+        gt=0, 
+    )
+
+    category: Category
