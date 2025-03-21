@@ -47,15 +47,15 @@ class CreateProductRequest(Product, BaseModel):
     pass
 
 
-class CreateProductResponse(Product, BaseModel):
+class CreateProductResponse(GetProductResponse, BaseModel):
     """
     Schema for returning the newly created product.
 
-    Inherits from the Product model and includes an additional 'id' field.
+    Inherits from the GetProductResponse model to include an additional 'id' field.
     This schema is used for the response of the POST Product endpoint.
     """
 
-    id: PydanticObjectId  # Unique identifier for the newly created product
+    pass
 
 
 class UpdateProductRequest(Product, BaseModel):
